@@ -103,12 +103,12 @@ onQuery: function() {
     })
   },  
   
-  previewImg:function(){
+  previewImg:function(e){
     const that = this
-    console.log('that',that.data.imgUrl)
+    console.log('that',e.target.dataset.img)
     wx.previewImage({
-      current: that.data.imgUrl, 
-      urls: [that.data.imgUrl] 
+      current: e.target.dataset.img, 
+      urls: [e.target.dataset.img] 
     })
   }
  

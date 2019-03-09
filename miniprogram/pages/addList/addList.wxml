@@ -5,7 +5,7 @@
   <textarea auto-height placeholder="活动文字记录" value="{{log}}" bindinput="bindLogChange"/>
   <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
 
-  <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+  <picker mode="date" value="{{date}}" start="2019-01-01" end="2021-12-12" bindchange="bindDateChange">
     <view>选择日期: {{date}}</view>
   </picker>
   <button
