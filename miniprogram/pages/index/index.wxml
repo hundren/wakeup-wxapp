@@ -1,0 +1,38 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 用户 openid -->
+  <view wx:if="{{!logged}}" class="userinfoBox">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    >
+      </button>
+      <text >{{!logged?'点击头像授权':''}}</text>
+  </view>
+
+  <!-- 记录 -->
+  <view class="logContainer" wx:for="{{lists}}" wx:for-item="list" >
+  <view class="uploader">
+    <view class="uploader-text" bindtap="doUpload">
+      <text class="uploader-text-word">{{list.log}}</text>
+      <text class="uploader-text-word">{{list.date}}</text>
+    </view>
+    <view class="uploader-container"  wx:for="{{list.imgs}}" wx:for-item="imgUrl">
+      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+    </view>
+  </view>
+  </view>
+
+
+ <!-- 添加记录 -->
+  <view class="uploader">
+    <view class="uploader-text" bindtap="addList">
+      <text>添加活动</text>
+    </view>
+  </view>
+
+
+</view>
