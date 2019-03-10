@@ -18,7 +18,7 @@
   <view class="uploader">
     <view class="uploader-text" bindtap="doUpload">
       <text class="uploader-text-word">{{list.log}}</text>
-      <text class="uploader-text-word">{{list.date}}</text>
+      <text class="uploader-text-date">{{list.date}}</text>
     </view>
     <view class="uploader-container"  wx:for="{{list.imgs}}" wx:for-item="imgUrl">
       <image class="uploader-image" data-img="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
@@ -34,5 +34,5 @@
     </view>
   </view>
 
-
+<heart percent="{{percent}}"/>
 </view>

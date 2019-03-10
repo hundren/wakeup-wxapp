@@ -7,6 +7,11 @@ Page({
   },
 
   onLoad: function (options) {
+    const date = new Date()
+    this.setData({
+      date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    })
+
 
   },
   bindLogChange:function(e){

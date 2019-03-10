@@ -9,7 +9,10 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    lists:[]
+    lists:[],
+    page:0,
+    size:10,
+    percent:0
   },
 
   onLoad: function() {
@@ -47,16 +50,23 @@ Page({
       withShareTicket: true
     })
     this.onQuery()
-
+    this.onCount()
   },
 //  查询数据库
 onQuery: function() {
   const db = wx.cloud.database()
+  const that = this
   // 查询当前用户所有的 counters
-  db.collection('lists').get({
+  db.collection('lists')
+  .orderBy('_id', 'desc')
+  .skip(that.data.page*that.data.size) 
+  .limit(that.data.size).
+  get({
     success: res => {
+      let _lists = this.data.lists
+      _lists = _lists.concat(res.data)
       this.setData({
-        lists: res.data
+        lists: _lists
       })
       console.log('[数据库] [查询记录] 成功: ', res)
     },
@@ -69,6 +79,18 @@ onQuery: function() {
     }
   })
 },
+onCount:function(){
+  const db = wx.cloud.database()
+  db.collection('lists').count({
+    success(res) {
+      console.log(res.total)
+      this.setData({
+        percent:res.total/100
+      })
+    }
+  })
+},
+
   onGetUserInfo: function(e) {
     if (!this.logged && e.detail.userInfo) {
       this.setData({
@@ -110,6 +132,13 @@ onQuery: function() {
       current: e.target.dataset.img, 
       urls: [e.target.dataset.img] 
     })
+  },
+  onReachBottom(){
+    console.log('g',)
+    this.setData({
+      page:this.data.page + 1
+    })
+    this.onQuery()
   }
  
 })

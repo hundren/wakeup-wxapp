@@ -1,0 +1,80 @@
+.heart-box{
+    width: 130rpx;
+    height: 130rpx;
+    overflow: hidden;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 100rpx;
+    right: 10rpx;
+    }
+  
+  .heart-content{
+    width: 50rpx;
+    height: 75rpx;
+    /* float:left; */
+    border-radius: 50% 50% 0 0;
+    border: 1px solid #000;
+    border-right: 0;
+    border-left: 0;
+    overflow: hidden;
+    position: relative;
+}
+    .heart-content-2{
+        width: 50rpx;
+    height: 75rpx;
+    /* float:left; */
+    border-radius: 50% 50% 0 0;
+        background: red;
+        border:0
+    }
+
+    .left-heart{
+    
+    transform-origin: right bottom;
+    
+    transform: rotate(46deg);
+    
+    animation: 2s move linear infinite;
+    
+    }
+    .heart-in{
+        position: absolute;
+        animation-delay: 1s;
+        /* animation: 2s move linear infinite; */
+    }
+    .left-heart-in{
+        /* top: 40rpx;
+        left:40rpx */
+    }
+    .right-heart-in{
+        /* position: absolute; */
+        /* top: 40rpx;
+        right:40rpx */
+    }
+   .right-heart{
+    
+    transform-origin: left bottom;
+    
+    transform: rotate(-46deg);
+    
+    animation: 2s move1 linear infinite;
+    
+    }
+    
+    @keyframes move{
+    
+    0%{transform:rotate(46deg) scale(1);}
+    
+    50%{transform:rotate(46deg) scale(1.2);}
+    
+    }
+    
+    @keyframes move1{
+    
+    0%{transform:rotate(-46deg) scale(1);}
+    
+    50%{transform:rotate(-46deg) scale(1.2);}
+    
+    }

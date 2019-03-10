@@ -1,0 +1,27 @@
+page{
+    background: #f7f7f7;
+}
+.text-container{
+    width: 100%;
+    padding:20rpx;
+    box-sizing: border-box;
+}
+.container{
+    height: 100vh;
+}
+textarea{
+    width: 100%;
+    min-height: 200rpx;
+}
+picker{
+    width: 100%;
+    background: #fff;
+}
+.picker-date{
+    padding:20rpx;
+}
+.save-btn{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
