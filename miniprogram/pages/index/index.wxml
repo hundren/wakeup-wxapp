@@ -28,11 +28,11 @@
 
 
  <!-- 添加记录 -->
-  <view class="uploader">
+  <!-- <view class="uploader">
     <view class="uploader-text" bindtap="addList">
       <text>添加活动</text>
     </view>
-  </view>
+  </view> -->
 
 <heart percent="{{percent}}"/>
 </view>

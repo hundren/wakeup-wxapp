@@ -32,7 +32,7 @@ Page({
     // 选择图片
     wx.chooseImage({
       count: 1,
-      sizeType: ['original','compressed'],
+      sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
 
