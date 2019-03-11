@@ -7,7 +7,7 @@ page{
     box-sizing: border-box;
 }
 .container{
-    height: 100vh;
+    margin-bottom: 300rpx
 }
 textarea{
     width: 100%;

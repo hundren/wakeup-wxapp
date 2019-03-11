@@ -3,7 +3,7 @@ Page({
   data: {
     log:'',
     date: '',
-    imgUrl:''
+    imgs:[]
   },
 
   onLoad: function (options) {
@@ -59,8 +59,10 @@ Page({
             // wx.navigateTo({
             //   url: '../storageConsole/storageConsole'
             // })
+            let imgs = JSON.parse(JSON.stringify(that.data.imgs))
+            imgs.push(res.fileID)
             that.setData({
-              imgUrl:res.fileID
+              imgs
             })
             console.log('imgUrl',this.data.imgUrl)
           },
@@ -83,12 +85,12 @@ Page({
     })
   },
   saveList:function(){
-    const {log,imgUrl,date} = this.data
+    const {log,imgs,date} = this.data
     const db = wx.cloud.database()
     db.collection('lists').add({
       data: {
         log,
-        imgs:[imgUrl],
+        imgs:imgs,
         date
       },
       success: res => {

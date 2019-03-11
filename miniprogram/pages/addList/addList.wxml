@@ -3,11 +3,13 @@
   <view class="text-container">
     <textarea auto-height placeholder="输入活动文字记录" value="{{log}}" bindinput="bindLogChange"/>
   </view>
-  <image wx:if="{{imgUrl}}" class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+  <image wx:for="{{imgs}}" wx:for-item="imgUrl"  class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
 
     <button style="width:100%" type="primary" bindtap="doUpload">添加照片</button>
 
-
+ <view  >
+ 
+ </view>
   <picker mode="date" value="{{date}}" start="2019-01-01" end="2021-12-12" bindchange="bindDateChange">
     <view class="picker-date">选择日期: {{date}}</view>
   </picker>
