@@ -11,6 +11,8 @@
 	"appid": "wx83f5e3553fa2b924",
 	"projectname": "wakeup",
 	"libVersion": "2.2.5",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
