@@ -58,7 +58,7 @@ onQuery: function() {
   const that = this
   // 查询当前用户所有的 counters
   db.collection('lists')
-  .orderBy('_id', 'desc')
+  .orderBy('date', 'desc')
   .skip(that.data.page*that.data.size) 
   .limit(that.data.size).
   get({

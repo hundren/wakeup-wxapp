@@ -8,12 +8,21 @@ Page({
 
   onLoad: function (options) {
     const date = new Date()
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    const formatNumber = n => {
+      n = n.toString()
+      return n[1] ? n : '0' + n
+    }
+
     this.setData({
-      date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+      date: [year, month, day].map(formatNumber).join('-')
     })
-
-
   },
+ 
+
   bindLogChange:function(e){
     console.log('e',e)
     this.setData({
