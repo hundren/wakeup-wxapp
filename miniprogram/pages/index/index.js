@@ -81,11 +81,12 @@ onQuery: function() {
 },
 onCount:function(){
   const db = wx.cloud.database()
+  const that = this
   db.collection('lists').count({
     success(res) {
       console.log(res.total)
-      this.setData({
-        percent:res.total/100
+      that.setData({
+        percent: res.total/100
       })
     }
   })
