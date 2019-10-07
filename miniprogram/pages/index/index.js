@@ -52,6 +52,7 @@ Page({
     this.onQuery()
     this.onCount()
   },
+// 获取accesstoken
 //  查询数据库
 onQuery: function() {
   const db = wx.cloud.database()

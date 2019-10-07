@@ -3,6 +3,7 @@
   "pages": [
     "pages/index/index",
     "pages/addList/addList",
+    "pages/sign/sign",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction"
   ],

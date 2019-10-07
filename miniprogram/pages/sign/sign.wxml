@@ -1,0 +1,19 @@
+<!--pages/sign/sign.wxml-->
+<form report-submit bindsubmit="sign">
+<view class="container">
+  <view class="text-container">
+    <textarea auto-height placeholder="请输入问题/答案" name="text"/>
+  </view>
+
+  <button
+   class="save-btn"
+    type="primary"
+    formType="submit"
+    hover-class="other-button-hover"
+    disabled="{{isSubmitting}}"
+    loading="{{isSubmitting}}"
+  >
+  确认签到
+</button>
+</view>
+</form>

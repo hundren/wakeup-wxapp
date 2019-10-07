@@ -1,5 +1,5 @@
 <!-- 组件 custom-component.wxml -->
-  <view class="heart-box"  bindtap="addList">
+  <view class="heart-box"  bindtap="sign" bindlongtap="addList">
     <view class="left-heart heart-content">
           <view class=" heart-content-2 heart-in left-heart-in" style="top:{{45*(1-percent)}}rpx;left:{{45*(1-percent)}}rpx"></view>
     </view>

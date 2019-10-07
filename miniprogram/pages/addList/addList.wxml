@@ -1,4 +1,5 @@
 <!--pages/addFunction/addFunction.wxml-->
+<form report-submit bindsubmit="saveList">
 <view class="container">
   <view class="text-container">
     <textarea auto-height placeholder="输入活动文字记录" value="{{log}}" bindinput="bindLogChange"/>
@@ -16,9 +17,11 @@
   <button
    class="save-btn"
     type="primary"
-    bindtap="saveList"
+    formType="submit"
     hover-class="other-button-hover"
   >
   确认保存
 </button>
 </view>
+</form>
+

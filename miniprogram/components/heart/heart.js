@@ -14,12 +14,16 @@ Component({
 
 
   methods: {
+    sign:function(){
+      wx.navigateTo({
+        url: '/pages/sign/sign'
+      })
+    },
     addList:function(){
       wx.navigateTo({
         url: '/pages/addList/addList'
       })
     }
-    
   }
 
 })

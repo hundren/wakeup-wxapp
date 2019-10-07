@@ -93,9 +93,41 @@ Page({
       }
     })
   },
-  saveList:function(){
-    const {log,imgs,date} = this.data
+  saveList:function(e){
+    console.log('e',e)
     const db = wx.cloud.database()
+
+    const {log,imgs,date} = this.data
+    db.collection('formIds').add({
+      data: {
+        formId:e.detail.formId,
+      },
+      success: res => {
+      
+      },
+      fail: err => {
+      }
+    })
+    wx.cloud.callFunction({
+      name: 'timer',
+      data: {formId:e.detail.formId,date},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res)
+      
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+       
+      }
+    })
+    if(imgs.length<0 || !log || !date){
+      wx.showToast({
+        title: '所填数据不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
     db.collection('lists').add({
       data: {
         log,
