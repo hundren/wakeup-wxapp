@@ -1,6 +1,12 @@
 Page({
-    data:{
-        isSubmitting:false
+    onReady: function (e) {
+      // 使用 wx.createAudioContext 获取 audio 上下文 context
+      this.audioCtx = wx.createInnerAudioContext()
+      this.audioCtx.src = 'cloud://wakeup-4d5136.7761-wakeup-4d5136/AJR - Bud Like You.mp3'
+    },
+   
+    data: {
+      isSubmitting:false,
     },
     sign:async function(e){
         this.setData({
@@ -46,6 +52,7 @@ Page({
                             icon: 'none',
                             duration: 2000
                           })
+                          that.audioCtx.play()
                           that.setData({
                             isSubmitting:false
                           })
