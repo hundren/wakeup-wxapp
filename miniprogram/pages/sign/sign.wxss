@@ -25,3 +25,20 @@ picker{
     position: fixed;
     bottom: 0;
 }
+.log-box{
+    position: fixed;
+    bottom: 200rpx;
+    right:-30rpx;
+    background: red;
+    width: 100rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    color: #fff;
+    text-align: center;
+    font-size: 28rpx;
+    border-top-left-radius: 60rpx;
+    border-bottom-left-radius: 60rpx;
+}
+.log-box:hover{
+    right: 0;
+}

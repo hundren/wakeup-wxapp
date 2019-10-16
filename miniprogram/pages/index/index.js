@@ -38,6 +38,12 @@ Page({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               })
+              const db = wx.cloud.database()
+              db.collection('couples').add({
+                data: {
+                  avatar:res.userInfo.avatarUrl,
+                },
+              })
             }
           })
         }

@@ -4,8 +4,7 @@
   <view class="text-container">
     <textarea auto-height placeholder="请输入问题/答案" name="text"/>
   </view>
-<audio  src="{{src}}" id="myAudio" loop></audio>
-
+  <navigator url="/pages/logs/logs"	class="log-box">日志</navigator>
   <button
    class="save-btn"
     type="primary"
