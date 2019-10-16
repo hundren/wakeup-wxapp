@@ -129,10 +129,14 @@ onCount:function(){
   
   previewImg:function(e){
     const that = this
-    console.log('that',e.target.dataset.img)
+    // 扁平化当前所有imgs
+    let imgs = []
+    that.data.lists.forEach(list => {
+      imgs = imgs.concat(list.imgs)
+    });
     wx.previewImage({
       current: e.target.dataset.img, 
-      urls: [e.target.dataset.img] 
+      urls: imgs
     })
   },
   onReachBottom(){

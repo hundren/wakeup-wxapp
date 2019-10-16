@@ -3,7 +3,8 @@ Page({
   data: {
     log:'',
     date: '',
-    imgs:[]
+    imgs:[],
+    videos:[]
   },
 
   onLoad: function (options) {
@@ -44,83 +45,73 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-
-        wx.showLoading({
-          title: '上传中',
-        })
-
         const filePath = res.tempFilePaths[0]
-        console.log('filePath', filePath)
-        console.log('res', res)
-
-        // 上传图片
-        const time =   Date.parse( new Date());
-        const cloudPath = time + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
-
-            // app.globalData.fileID = res.fileID
-            // app.globalData.cloudPath = cloudPath
-            // app.globalData.imagePath = filePath
-            // wx.navigateTo({
-            //   url: '../storageConsole/storageConsole'
-            // })
-            let imgs = JSON.parse(JSON.stringify(that.data.imgs))
-            imgs.push(res.fileID)
-            that.setData({
-              imgs
-            })
-            console.log('imgUrl',this.data.imgUrl)
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
-          }
+        that.uploadFile(filePath,(fileRes)=>{
+          let imgs = JSON.parse(JSON.stringify(that.data.imgs))
+          imgs.push(fileRes.fileID)
+          that.setData({
+            imgs
+          })
         })
-
       },
       fail: e => {
         console.error(e)
       }
     })
   },
+  doUploadVideo:function(e){
+    const that = this
+    // 选择图片
+    wx.chooseVideo({
+      success: function (res) {
+        console.log('res',res)
+        const filePath = res.tempFilePath
+        that.uploadFile(filePath,(fileRes)=>{
+          let videos = JSON.parse(JSON.stringify(that.data.videos))
+          videos.push(fileRes.fileID)
+          that.setData({
+            videos
+          })
+          console.log('videos',this.data.videos)
+        })
+      },
+      fail: e => {
+        console.error(e)
+      }
+    })
+  },
+  uploadFile:function(filePath,cb){
+    wx.showLoading({
+      title: '上传中',
+    })
+    const time =   Date.parse( new Date());
+    const cloudPath = time + filePath.match(/\.[^.]+?$/)[0]
+    wx.cloud.uploadFile({
+      cloudPath,
+      filePath,
+      success: res => {
+        console.log('[上传文件] 成功：', res)
+        typeof cb === 'function' && cb(res)
+    
+      },
+      fail: e => {
+        console.error('[上传文件] 失败：', e)
+        wx.showToast({
+          icon: 'none',
+          title: '上传失败',
+        })
+      },
+      complete: () => {
+        wx.hideLoading()
+      }
+    })
+  },
   saveList:function(e){
     console.log('e',e)
     const db = wx.cloud.database()
-
-    const {log,imgs,date} = this.data
-    db.collection('formIds').add({
-      data: {
-        formId:e.detail.formId,
-      },
-      success: res => {
-      
-      },
-      fail: err => {
-      }
-    })
-    wx.cloud.callFunction({
-      name: 'timer',
-      data: {formId:e.detail.formId,date},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res)
-      
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-       
-      }
-    })
-    if(imgs.length<0 || !log || !date){
+    const {log,imgs,date,videos} = this.data
+    console.log('imgs',imgs)
+    if((imgs.length<=0 && videos.length<=0) || !log || !date){
       wx.showToast({
         title: '所填数据不能为空',
         icon: 'none',
@@ -132,6 +123,7 @@ Page({
       data: {
         log,
         imgs:imgs,
+        videos,
         date
       },
       success: res => {
@@ -153,12 +145,11 @@ Page({
       }
     })
   },
-  previewImg:function(){
+  previewImg:function(e){
     const that = this
-    console.log('that',that.data.imgUrl)
     wx.previewImage({
-      current: that.data.imgUrl, 
-      urls: [that.data.imgUrl] 
+      current: e.target.dataset.img, 
+      urls: that.data.imgs
     })
   }
 })

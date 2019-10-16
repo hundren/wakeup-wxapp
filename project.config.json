@@ -40,7 +40,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -59,6 +59,13 @@
 					"id": -1,
 					"name": "pages/sign/sign",
 					"pathName": "pages/sign/sign",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/addList/addList",
+					"pathName": "pages/addList/addList",
 					"scene": null
 				}
 			]

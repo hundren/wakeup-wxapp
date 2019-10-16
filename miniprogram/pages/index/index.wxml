@@ -23,6 +23,9 @@
     <view class="uploader-container"  wx:for="{{list.imgs}}" wx:for-item="imgUrl">
       <image class="uploader-image" data-img="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
     </view>
+    <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc">
+      <video src="{{videoSrc}}"></video>
+    </view>
   </view>
   </view>
 

@@ -4,9 +4,10 @@
   <view class="text-container">
     <textarea auto-height placeholder="输入活动文字记录" value="{{log}}" bindinput="bindLogChange"/>
   </view>
-  <image wx:for="{{imgs}}" wx:for-item="imgUrl"  class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
-
+  <image wx:for="{{imgs}}" wx:for-item="imgUrl"  class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg" data-img="{{imgUrl}}" ></image>
+  <video wx:for="{{videos}}" wx:for-item="videoSrc" src="{{videoSrc}}"/>
     <button style="width:100%" type="primary" bindtap="doUpload">添加照片</button>
+    <button style="width:100%" type="primary" bindtap="doUploadVideo">添加视频</button>
 
  <view  >
  

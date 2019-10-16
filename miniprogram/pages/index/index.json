@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "heart":"../../components/heart/heart"
-  }
+  },
+  "navigationBarTitleText": "morning鸭～"
 }
