@@ -1,3 +1,6 @@
 {
+  "usingComponents": {
+    "birthday":"../../components/birthday/birthday"
+  },
   "navigationBarTitleText": "添加活动"
 }

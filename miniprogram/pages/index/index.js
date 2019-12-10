@@ -5,7 +5,7 @@ Page({
   data: {
     avatarUrl: './user-unlogin.png',
     userInfo: {},
-    openid: '',
+    openId: '',
     logged: false,
     takeSession: false,
     requestResult: '',
@@ -116,9 +116,9 @@ onCount:function(){
       data: {},
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
+        app.globalData.openId = res.result.openid
         this.setData({
-          openid:res.result.openid
+          openId:res.result.openid
         })
       },
       fail: err => {

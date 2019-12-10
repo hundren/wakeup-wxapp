@@ -15,5 +15,6 @@
   >
   确认签到
 </button>
+<birthday />
 </view>
 </form>
