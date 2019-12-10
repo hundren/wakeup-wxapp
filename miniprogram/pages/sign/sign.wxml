@@ -2,9 +2,9 @@
 <form report-submit bindsubmit="sign">
 <view class="container">
   <view class="text-container">
-    <textarea auto-height placeholder="请输入问题/答案" name="text"/>
+    <textarea hidden="{{isBirthday}}" auto-height placeholder="请输入问题/答案" name="text"/>
   </view>
-  <navigator url="/pages/logs/logs"	class="log-box">日志</navigator>
+  <navigator url="/pages/logs/logs"	class="log-box">日志2</navigator>
   <button
    class="save-btn"
     type="primary"
@@ -15,6 +15,6 @@
   >
   确认签到
 </button>
-<birthday />
+<birthday wx:if="{{isBirthday}}"/>
 </view>
 </form>

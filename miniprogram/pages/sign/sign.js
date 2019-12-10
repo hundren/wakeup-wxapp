@@ -1,12 +1,28 @@
 Page({
-    onReady: function (e) {
+    onReady: async function (e) {
       // 使用 wx.createAudioContext 获取 audio 上下文 context
       this.audioCtx = wx.createInnerAudioContext()
       this.audioCtx.src = 'cloud://wakeup-4d5136.7761-wakeup-4d5136/AJR - Bud Like You.mp3'
+      const {result:date}  = await wx.cloud.callFunction({
+        name:'date'
+      })
+      console.log('date',date)
+      if(date === '2019-12-18'){
+        
+        this.setData({
+          isBirthday:true
+        })
+        setTimeout(() => {
+          this.setData({
+            isBirthday:false
+          })
+        }, 54000);
+      }
     },
    
     data: {
       isSubmitting:false,
+      isBirthday:false,
     },
     sign:async function(e){
         this.setData({
