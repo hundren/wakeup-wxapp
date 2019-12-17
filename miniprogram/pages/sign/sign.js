@@ -16,7 +16,7 @@ Page({
           this.setData({
             isBirthday:false
           })
-        }, 54000);
+        }, 55000);
       }
     },
    
