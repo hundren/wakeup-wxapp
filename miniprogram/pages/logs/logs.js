@@ -87,19 +87,19 @@ Page({
           console.log('res',res.data)
           const _data = []
           res.data.forEach(logItem => {
-            const dateIndex = _data.findIndex(item=>item.date === logItem.date)
+            const dateIndex = _logs.findIndex(item=>item.date === logItem.date)
             if(dateIndex > -1){
               if(logItem.isEarlier){
-                _data[dateIndex] = {
-                  ..._data[dateIndex],
+                _logs[dateIndex] = {
+                  ..._logs[dateIndex],
                   question: logItem.text,
                   questionTime: logItem.time.split(' ')[1] ,
                   questionOpenId: logItem.openId,
                   questionAvatar: that.data.avatarObj[logItem.openId]
                 }
               }else{
-                _data[dateIndex] = {
-                  ..._data[dateIndex],
+                _logs[dateIndex] = {
+                  ..._logs[dateIndex],
                   answer: logItem.text,
                   answerTime: logItem.time.split(' ')[1] ,
                   answerOpenId: logItem.openId,
@@ -107,7 +107,7 @@ Page({
                 }
               }
             }else{
-              _data.push({
+              _logs.push({
                 date: logItem.date,
                 question: logItem.isEarlier ? logItem.text : '',
                 questionTime: logItem.isEarlier ? logItem.time.split(' ')[1] : '',
@@ -120,8 +120,7 @@ Page({
               })
             }
           });
-          console.log('_data',_data)
-          _logs = _logs.concat(_data)
+          console.log('_logs',_logs)
           this.setData({
             logs: _logs
           })
