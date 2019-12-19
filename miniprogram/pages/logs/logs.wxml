@@ -1,3 +1,32 @@
 <view>
-    拼命开发中。。。
+    <view class="info-box">
+        <view class="single-info-box">
+            <image class="avatar" src="{{avatar}}" mode="widthFix"/>
+            <view >{{point}}</view>
+        </view>
+        <view>:</view>
+        <view class="single-info-box">
+            <image class="avatar" src="{{coupleAvatar}}" mode="widthFix"/>
+            <view >{{couplePoint}}</view>
+        </view>
+    </view>
+    <view class="log-box">
+        <view wx:for="{{logs}}" wx:for-item="log" class="log-box-item">
+            <view class="date-box">{{log.date}}</view>
+            <view class="question-box">
+                <image class="log-avatar" src="{{log.questionAvatar}}" mode="widthFix"/>
+                <view class="log-content log-content-question" >
+                    <view >{{log.question}}</view>
+                    <view >{{log.questionTime}}</view>
+                </view>
+            </view>
+            <view class="answer-box">
+                <view class="log-content log-content-answer">
+                    <view >{{log.answer}}</view>
+                    <view >{{log.answerTime}}</view>
+                </view>
+                 <image class="log-avatar" src="{{log.answerAvatar}}" mode="widthFix"/>
+            </view>
+        </view>
+    </view>
 </view>

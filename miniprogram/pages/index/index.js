@@ -34,16 +34,14 @@ Page({
           })
           wx.getUserInfo({
             success: res => {
+              console.log('res',res)
+              // that.onGetUserInfo()
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               })
-              const db = wx.cloud.database()
-              db.collection('couples').add({
-                data: {
-                  avatar:res.userInfo.avatarUrl,
-                },
-              })
+              // 先查找判断couples是否存在用户信息
+             this.setUserInfoDb(res.userInfo.avatarUrl,res.userInfo)
             }
           })
         }
@@ -101,15 +99,39 @@ onCount:function(){
 
   onGetUserInfo: function(e) {
     if (!this.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      })
+      this.setUserInfoDb(e.detail.userInfo.avatarUrl,e.detail.userInfo)
     }
   },
-
-  onGetOpenid: function() {
+  setUserInfoDb: function (avatarUrl,userInfo) {
+    const that = this
+    if(this.data.openId){
+      that.addCouples(this.data.openId,avatarUrl,userInfo)
+    }else{
+      that.onGetOpenid((openId)=>{
+        that.addCouples(openId,avatarUrl,userInfo)
+      })
+    }
+   
+  },
+  addCouples:function(openId,avatarUrl,userInfo){
+    const db = wx.cloud.database()
+    db.collection('couples').where({
+      openId
+    }).get({
+      success:res=>{
+        if(res.data && res.data.length <= 0){
+          db.collection('couples').add({
+            data: {
+              openId,
+              avatar:avatarUrl,
+              userInfo
+            },
+          })
+        }
+      }
+    })
+  },
+  onGetOpenid: function(cb) {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -120,10 +142,10 @@ onCount:function(){
         this.setData({
           openId:res.result.openid
         })
+        typeof cb === 'function' && cb(res.result.openid)
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
-       
       }
     })
   },
