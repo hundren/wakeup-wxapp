@@ -17,7 +17,7 @@ Page({
         const that = this
         console.log('app.globalData.openId',app.globalData.openId)
         //hardCode
-        app.globalData.openId = 'oSu_70LQjmtXhWvppkre70f-__w4'
+        // app.globalData.openId = 'oSu_70LQjmtXhWvppkre70f-__w4'
         db.collection('couples').where({
          openId:app.globalData.openId
         }).get({
