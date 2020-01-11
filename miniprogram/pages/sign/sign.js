@@ -18,6 +18,7 @@ Page({
           })
         }, 55000);
       }
+   
     },
    
     data: {
@@ -25,6 +26,7 @@ Page({
       isBirthday:false,
     },
     sign:async function(e){
+
         this.setData({
             isSubmitting:true
         })
@@ -75,7 +77,7 @@ Page({
                           //晚的发起消息
                           if(status.isEarlier === false){
                             wx.cloud.callFunction({
-                                name:'message'
+                              name:'message'
                             })
                           }
                         },

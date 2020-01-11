@@ -16,24 +16,30 @@ exports.main = async (event, context) => {
 
         for (let index = 0; index < res.data.length; index++) {
             const element = res.data[index];
-            const result = await cloud.openapi.templateMessage.send({
+            console.log('openId',element.openId)
+            console.log('thing1',earlier.text)
+            console.log('time2',earlier.time)
+            console.log('thing4',later.text)
+            console.log('thing3',later.time)
+
+            const result = await cloud.openapi.subscribeMessage.send({
                 touser: element.openId,
                 page: '/pages/index/index',
                 data: {
-                  keyword1: {
+                  thing1: {
                     value: earlier.text
                   },
-                  keyword2: {
+                  time2: {
                     value: earlier.time
                   },
-                  keyword3: {
+                  thing4: {
                     value: later.text
                   },
-                  keyword4: {
+                  thing3: {
                     value: later.time
                   }
                 },
-                templateId:'-2qdDocWp3kIKS2HeLO7TKJaRIdpiuEZm1p-PyWbjcQ',
+                templateId:'p5M4KiN61mirLpgXb79q5RCMoBta9-18JnccunfyAZQ',
                 formId: element.formId,
               })
         }
