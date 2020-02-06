@@ -7,8 +7,9 @@ Page({
         name:'date'
       })
       console.log('date',date)
-      if(date === '2019-12-18'){
-        
+      // 取月日
+      const monthDay = date ? date.split('-')[1] + '-' + date.split('-')[2] : ''
+      if(monthDay === '12-18'){
         this.setData({
           isBirthday:true
         })
@@ -18,12 +19,17 @@ Page({
           })
         }, 55000);
       }
-   
+      if(monthDay === '02-08'){
+        this.setData({
+          isAnniversary:true
+        })
+      }
     },
    
     data: {
       isSubmitting:false,
       isBirthday:false,
+      isAnniversary:false
     },
     sign:async function(e){
 
@@ -104,5 +110,10 @@ Page({
         })
        }
    
+   },
+   handleCloseAnniversary: function(){
+     this.setData({
+      isAnniversary:false
+     })
    }
 })

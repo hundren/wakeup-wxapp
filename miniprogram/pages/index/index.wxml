@@ -14,16 +14,16 @@
   </view>
 
   <!-- 记录 -->
-  <view class="logContainer" wx:for="{{lists}}" wx:for-item="list" >
+  <view class="logContainer" wx:for="{{lists}}" wx:for-item="list" wx:for-index="index" wx:key="index">
   <view class="uploader">
     <view class="uploader-text" bindtap="doUpload">
       <text class="uploader-text-word">{{list.log}}</text>
       <text class="uploader-text-date">{{list.date}}</text>
     </view>
-    <view class="uploader-container"  wx:for="{{list.imgs}}" wx:for-item="imgUrl">
+    <view class="uploader-container"  wx:for="{{list.imgs}}" wx:for-item="imgUrl" wx:for-index="index" wx:key="index">
       <image class="uploader-image" data-img="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
     </view>
-    <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc">
+    <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc" wx:for-index="index" wx:key="index">
       <video class="uploader-video" src="{{videoSrc}}"></video>
     </view>
   </view>

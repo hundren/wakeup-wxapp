@@ -1,0 +1,13 @@
+<view class="anniversary-box">
+    <view class="word-box" bindtap="onTap">
+        <view class="word">{{year}}周年相识快乐！</view>
+        <view class="word" style="color:orange;font-size:18px">感谢遇见你，mua～<text style="color:red">❤️</text></view>
+    </view>
+     <swiper class="swiper-box" autoplay="true" interval="1000" duration="500">
+        <block wx:for="{{imgs}}" wx:for-index="index" wx:key="index">
+          <swiper-item>
+            <image mode="widthFix" style="width:100%" src="{{item}}"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+</view>

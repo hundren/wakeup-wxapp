@@ -1,6 +1,7 @@
 {
     "usingComponents": {
-        "birthday":"../../components/birthday/birthday"
+        "birthday":"../../components/birthday/birthday",
+        "anniversary":"../../components/anniversary/anniversary"
     },
     "navigationBarTitleText": "早睡早起"
 }

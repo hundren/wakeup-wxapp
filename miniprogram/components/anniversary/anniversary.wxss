@@ -1,0 +1,28 @@
+.anniversary-box{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    width: 100%;
+    height: 100%;
+}
+.swiper-box{
+    width: 100%;
+    height: 80vh;
+    position: absolute;
+    top: 20vh;
+    display: flex;
+    align-items: center;
+}
+.word{
+    color:#fff;
+    font-size: 20px;
+    text-align: center;
+}
+.word-box{
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

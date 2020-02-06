@@ -23,7 +23,9 @@ Page({
       })
       return
     }
-
+    wx.setKeepScreenOn({
+      keepScreenOn: true
+    })
     // 获取用户信息
     wx.getSetting({
       success: res => {

@@ -11,7 +11,7 @@
         </view>
     </view>
     <view class="log-box">
-        <view wx:for="{{logs}}" wx:for-item="log" class="log-box-item">
+        <view wx:for="{{logs}}" wx:for-item="log" class="log-box-item" wx:for-index="index" wx:key="index">
             <view class="date-box">{{log.date}}</view>
             <view class="question-box">
                 <image class="log-avatar" src="{{log.questionAvatar}}" mode="widthFix"/>

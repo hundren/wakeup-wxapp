@@ -2,9 +2,9 @@
 <form report-submit bindsubmit="sign">
 <view class="container">
   <view class="text-container">
-    <textarea hidden="{{isBirthday}}" auto-height placeholder="请输入问题/答案" name="text" maxlength="20"/>
+    <textarea hidden="{{isBirthday || isAnniversary}}" auto-height placeholder="请输入问题/答案" name="text" maxlength="20"/>
   </view>
-  <navigator url="/pages/logs/logs"	class="log-box">日志2</navigator>
+  <navigator url="/pages/logs/logs"	class="log-box">日志3</navigator>
   <button
    class="save-btn"
     type="primary"
@@ -16,5 +16,7 @@
   确认签到
 </button>
 <birthday wx:if="{{isBirthday}}"/>
+<anniversary wx:if="{{isAnniversary}}" bind:wordTap="handleCloseAnniversary"/>
+
 </view>
 </form>
