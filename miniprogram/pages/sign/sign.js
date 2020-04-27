@@ -116,5 +116,13 @@ Page({
      this.setData({
       isAnniversary:false
      })
+   },
+   handleTextChange: function(e) {
+     //触发彩蛋
+     if(e.detail.value === 'morning鸭' || e.detail.value === '我爱你' || e.detail.value === '小敏和小恒'){
+       this.setData({
+        isAnniversary:true
+       })
+     }
    }
 })
