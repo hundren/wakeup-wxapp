@@ -27,13 +27,13 @@ exports.main = async (event, context) => {
                 page: '/pages/index/index',
                 data: {
                   thing1: {
-                    value: earlier.text
+                    value: earlier.text ? earlier.text.substr(0,20) : ''
                   },
                   time2: {
                     value: earlier.time
                   },
                   thing4: {
-                    value: later.text
+                    value: later.text ? later.text.substr(0,20) : ''
                   },
                   thing3: {
                     value: later.time

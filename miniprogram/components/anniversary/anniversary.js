@@ -9,7 +9,7 @@ Component({
             // 在组件实例进入页面节点树时执行
             const self = this
             this.audioBirthdayCtx = wx.createInnerAudioContext()
-            this.audioBirthdayCtx.src = 'cloud://wakeup-4d5136.7761-wakeup-4d5136-1253625034/五月天 - 恋爱ing.mp3'
+            this.audioBirthdayCtx.src = 'cloud://wakeup-4d5136.7761-wakeup-4d5136-1253625034/fiveLove.mp3'
             this.audioBirthdayCtx.loop = true
             setTimeout(() => {
                 this.audioBirthdayCtx.play()

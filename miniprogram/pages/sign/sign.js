@@ -63,6 +63,7 @@ Page({
                          return false
                     }
                     console.log('9999',)
+                    // 截取前20个字符串
                     wx.cloud.callFunction({
                         name: 'sign',
                         data: {
