@@ -8,9 +8,9 @@
     justify-content: center;
     bottom: 100rpx;
     right: 10rpx;
+    overflow: visible;
     }
-  
-  .heart-content{
+.heart-content{
     width: 50rpx;
     height: 75rpx;
     /* float:left; */
@@ -53,7 +53,7 @@
         /* top: 40rpx;
         right:40rpx */
     }
-   .right-heart{
+    .right-heart{
     
     transform-origin: left bottom;
     
@@ -77,4 +77,164 @@
     
     50%{transform:rotate(-46deg) scale(1.2);}
     
+    }
+
+
+    /* 漂浮运动爱心 */
+    .bubble{
+        position: absolute;
+        opacity: 0;
+        color: rgb(233, 60, 60);
+        font-size: 42rpx;
+    }
+    @keyframes bubble_y_1 {
+        0% {
+            top: 0;
+            opacity: 0;
+        }
+        50%{
+            opacity: 0.8;
+        }
+        100% {
+            top: -400rpx;
+            opacity: 0;
+        }
+    }
+    @keyframes bubble_y_2 {
+        0% {
+            top: 0;
+            opacity: 0;
+        }
+        70%{
+            opacity: 0.7;
+        }
+        100% {
+            top: -420rpx;
+            opacity: 0;
+        }
+    }
+    @keyframes bubble_y_3 {
+        0% {
+            top: 0;
+            opacity: 0;
+        }
+        75%{
+            opacity: 0.6;
+        }
+        100% {
+            top: -430rpx;
+            opacity: 0;
+        }
+    }
+    @keyframes bubble_y_4 {
+        0% {
+            top: 0;
+            opacity: 0;
+        }
+        65%{
+            opacity: 0.9;
+        }
+        100% {
+            top: -380rpx;
+            opacity: 0;
+        }
+    }
+    @keyframes bubble_big_1 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.3);
+        }
+    }
+    @keyframes bubble_big_2 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.4);
+        }
+    }
+    @keyframes bubble_big_3 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.5);
+        }
+    }
+    @keyframes bubble_big_4 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.6);
+        }
+    }
+    @keyframes bubble_x_1 {
+        0% {
+        }
+        25% {
+            margin-left:-20rpx;
+        }
+        50% {
+            margin-left:20rpx
+        }
+        75% {
+            margin-left:-44rpx
+        }
+        100% {
+            margin-left:44rpx
+        }
+    }
+
+    @keyframes bubble_x_2 {
+        0% {
+        }
+        25% {
+            margin-left:20rpx;
+        }
+        50% {
+            margin-left:-20rpx
+        }
+        75% {
+            margin-left:44rpx
+        }
+        100% {
+            margin-left:-44rpx
+        }
+    }
+
+
+    @keyframes bubble_x_3 {
+        0% {
+        }
+        25% {
+            margin-left:-8rpx;
+        }
+        50% {
+            margin-left:24rpx
+        }
+        75% {
+            margin-left:-22rpx
+        }
+        100% {
+            margin-left:38rpx
+        }
+    }
+    @keyframes bubble_x_4 {
+        0% {
+        }
+        25% {
+            margin-left:8rpx;
+        }
+        50% {
+            margin-left:-24rpx
+        }
+        75% {
+            margin-left:22rpx
+        }
+        100% {
+            margin-left:-38rpx
+        }
     }
