@@ -17,12 +17,12 @@ Component({
       // 增加动画特效
         const type = ['1','2','3','4']
         let hearts = []
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 3; index++) {
           hearts.push({
             'y':type[Math.floor(Math.random()*type.length)],
             'x':type[Math.floor(Math.random()*type.length)],
             's':type[Math.floor(Math.random()*type.length)],
-            'delay':index*0.8
+            'delay':index*1.2
           })
         }
         this.setData({
