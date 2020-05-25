@@ -48,7 +48,9 @@ page {
   align-items: flex-start;
   box-sizing: border-box;
 }
-
+.pic-box{
+  width: 100%;
+}
 .uploader-text{
   width: 100%;
   /* line-height: 52px; */
@@ -72,10 +74,18 @@ page {
   box-sizing: border-box;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-
+.uploader-container-min{
+  width: 200rpx;
+  display: inline-block;
+  margin-right: 10rpx;
+}
 .uploader-image {
   width: 100%;
   height: 360rpx;
+}
+.uploader-image-min{
+  width: 200rpx;
+  height: 200rpx;
 }
 
 .uploader-video{
