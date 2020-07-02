@@ -1,6 +1,7 @@
 //index.js
 const app = getApp()
-
+const createRecycleContext = require('miniprogram-recycle-view')
+var ctx
 Page({
   data: {
     avatarUrl: './user-unlogin.png',
@@ -8,15 +9,26 @@ Page({
     openId: '',
     logged: false,
     takeSession: false,
+    batchSetRecycleData:true,
     requestResult: '',
     lists:[],
     page:0,
     size:10,
-    percent:0
+    percent:0,
+    ctx:null
   },
-
   onLoad: function() {
+    ctx = createRecycleContext({
+      id: 'recycleId',
+      dataKey: 'recycleList',
+      page: this,
+      itemSize:{
+        width: 400,
+        height: 500,
+      }
+    })
     let that = this
+
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -49,7 +61,21 @@ Page({
         }
       }
     })
-
+    var ctx = wx.createCanvasContext('canvas')
+    ctx.drawImage('cloud://wakeup-4d5136.7761-wakeup-4d5136-1253625034/1589075195000.jpg', 0, 0, 100, 100)
+    ctx.draw(false, setTimeout(function(){
+         wx.canvasToTempFilePath({
+             canvasId: 'canvas',
+             destWidth: 100,
+             destHeight: 100,
+             success: function (resImg) {
+                 console.log(resImg.tempFilePath)//最终图片路径
+             },
+             fail: function (resImg) {
+                 console.log(resImg.errMsg)
+            }
+        })
+    },100))
     this.onGetOpenid()
 
     wx.showShareMenu({
@@ -58,9 +84,17 @@ Page({
     this.onQuery()
     this.onCount()
   },
+  itemSizeFunc: function (item, idx) {
+    let height = ctx.transformRpx(item.videos.length*400) + (item.imgs.length === 1  ?ctx.transformRpx(360): ctx.transformRpx(Math.ceil(item.imgs.length/3) *200) )+ ctx.transformRpx(136);
+    return {
+        width: ctx.transformRpx(375),
+        height: height
+    }
+},
 // 获取accesstoken
 //  查询数据库
 onQuery: function() {
+  console.log('qqqqq',this.data.page)
   const db = wx.cloud.database()
   const that = this
   // 查询当前用户所有的 counters
@@ -72,8 +106,20 @@ onQuery: function() {
     success: res => {
       let _lists = this.data.lists
       _lists = _lists.concat(res.data)
+      
+      console.log('_lists',_lists)
+      _lists.forEach(element => {
+        element.imgs.forEach(img => {
+          
+        });
+      });
       this.setData({
         lists: _lists
+      })
+      console.log('[数据库] [查询记录] 成功:111 ', res)
+
+      ctx.append(res.data,()=>{
+        console.log('---------------------',)
       })
       console.log('[数据库] [查询记录] 成功: ', res)
     },
@@ -170,11 +216,16 @@ onCount:function(){
     })
   },
   onReachBottom(){
-    console.log('g',)
     this.setData({
       page:this.data.page + 1
     })
     this.onQuery()
+  },
+  handleScrollToLower(){
+    // this.setData({
+    //   page:this.data.page + 1
+    // })
+    // this.onQuery()
   }
  
 })

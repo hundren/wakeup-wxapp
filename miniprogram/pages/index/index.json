@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-    "heart":"../../components/heart/heart"
+    "heart":"../../components/heart/heart",
+    "recycle-view": "miniprogram-recycle-view/recycle-view",
+    "recycle-item": "miniprogram-recycle-view/recycle-item"
   },
   "navigationBarTitleText": "morning鸭～"
 }

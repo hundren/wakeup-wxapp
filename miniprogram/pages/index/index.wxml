@@ -14,6 +14,29 @@
   </view>
 
   <!-- 记录 -->
+  <!-- <recycle-view batch="{{batchSetRecycleData}}" id="recycleId" bindscrolltolower="handleScrollToLower" >
+      <recycle-item  wx:for="{{recycleList}}" wx:for-item="list" wx:for-index="index" wx:key="{{list._id}}" style="width:400px;height:500px" >
+        <view class="logContainer" >
+          <view class="uploader">
+            <view class="uploader-text" bindtap="doUpload">
+              <text class="uploader-text-word">{{list.log}}</text>
+              <text class="uploader-text-date">{{list.date}}</text>
+            </view>
+            <view class="pic-box">
+              <view class="{{list.imgs.length >= 2?'uploader-container-min':'uploader-container'}}"  wx:for="{{list.imgs}}" wx:for-item="imgUrl" wx:for-index="index" wx:key="index">
+                <image lazy-load 	class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgUrl}}" src="{{imgUrl}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
+              </view>
+            </view>
+            <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc" wx:for-index="index" wx:key="index">
+              <video class="uploader-video" src="{{videoSrc}}"></video>
+            </view>
+          </view>
+      </view>
+  </recycle-item>
+</recycle-view> -->
+ <canvas class="canvas" canvas-id="canvas" :style="{width:'200px',height:'200px'}"></canvas>
+
+<image src="http://tmp/wx83f5e3553fa2b924.o6zAJs_-IFHAh5vDSK5LsMNu540E.MgZAhiZqyFQV42998973bd15f963a71bd22b36c95bb4.png"/>
   <view class="logContainer" wx:for="{{lists}}" wx:for-item="list" wx:for-index="index" wx:key="index">
   <view class="uploader">
     <view class="uploader-text" bindtap="doUpload">
@@ -22,7 +45,7 @@
     </view>
     <view class="pic-box">
       <view class="{{list.imgs.length >= 2?'uploader-container-min':'uploader-container'}}"  wx:for="{{list.imgs}}" wx:for-item="imgUrl" wx:for-index="index" wx:key="index">
-        <image class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgUrl}}" src="{{imgUrl}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
+        <image lazy-load  class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgUrl}}" src="{{imgUrl}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
       </view>
     </view>
     <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc" wx:for-index="index" wx:key="index">

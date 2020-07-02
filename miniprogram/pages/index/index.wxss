@@ -17,6 +17,7 @@ page {
   background: yellow;
   width: 100%;
   top: 30%;
+  z-index: 2;
 }
  .uploader {
   margin-top: 40rpx;
