@@ -17,6 +17,7 @@ Page({
     percent:0,
     ctx:null
   },
+  loading:false,
   onLoad: function() {
     ctx = createRecycleContext({
       id: 'recycleId',
@@ -98,6 +99,10 @@ onQuery: function() {
   const db = wx.cloud.database()
   const that = this
   // 查询当前用户所有的 counters
+  wx.showLoading({
+    title: '加载中',
+  })
+  this.loading = true
   db.collection('lists')
   .orderBy('date', 'desc')
   .skip(that.data.page*that.data.size) 
@@ -105,17 +110,57 @@ onQuery: function() {
   get({
     success: res => {
       let _lists = this.data.lists
-      _lists = _lists.concat(res.data)
       
-      console.log('_lists',_lists)
-      _lists.forEach(element => {
-        element.imgs.forEach(img => {
-          
-        });
-      });
-      this.setData({
-        lists: _lists
+      _lists = _lists.concat(res.data)
+      let downloadPromise = []
+      _lists.forEach((item,mainIndex)=>{
+        if(item.imgs.length > 0){
+          const download = new Promise((resolve, reject) => {
+            wx.cloud.getTempFileURL({
+              fileList: item.imgs, // 文件 ID
+              success: res => {
+                // 返回临时文件路径
+                console.log(res.fileList)
+                res.fileList = res.fileList.map(file=>{
+                  return {
+                    ...file,
+                    tempFileURL:file.tempFileURL + '?imageMogr2/quality/6'
+                  }
+                })
+                resolve({mainIndex,imgs:res.fileList});
+              },
+              fail: error=>{
+                console.log('error',error)
+                resolve(null)
+              }
+            })
+          });
+          console.log('download',download)
+          downloadPromise.push(download)
+        }
       })
+      console.log('downloadPromise',downloadPromise)
+    
+
+   
+      console.log('downloadPromise',downloadPromise)
+      Promise.all(downloadPromise).then(res=>{
+        console.log('=======res========',res)
+        res.forEach(element => {
+          if(element){
+            const {mainIndex,imgs} = element
+            _lists[mainIndex].imgs = imgs
+          }
+        });
+        console.log('_lists',_lists)
+
+        this.setData({
+          lists: _lists
+        })
+        wx.hideLoading()
+        this.loading =false
+      })
+     
       console.log('[数据库] [查询记录] 成功:111 ', res)
 
       ctx.append(res.data,()=>{
@@ -208,7 +253,7 @@ onCount:function(){
     // 扁平化当前所有imgs
     let imgs = []
     that.data.lists.forEach(list => {
-      imgs = imgs.concat(list.imgs)
+      imgs = imgs.concat(list.imgs.map(item=>{return item.fileID}))
     });
     wx.previewImage({
       current: e.target.dataset.img, 
@@ -216,6 +261,7 @@ onCount:function(){
     })
   },
   onReachBottom(){
+    if(this.loading) return false
     this.setData({
       page:this.data.page + 1
     })
