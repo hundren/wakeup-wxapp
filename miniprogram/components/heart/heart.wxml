@@ -1,13 +1,14 @@
 <!-- 组件 custom-component.wxml -->
   <view class="heart-box"  bindtap="sign" bindlongtap="addList">
     <view class="left-heart heart-content">
-          <view class=" heart-content-2 heart-in left-heart-in" style="top:{{45*(1-percent)}}rpx;left:{{45*(1-percent)}}rpx"></view>
+          <view class=" heart-content-2 heart-in left-heart-in" style="top:{{45*(1-percentComputed)}}rpx;left:{{45*(1-percentComputed)}}rpx"></view>
     </view>
     <view class="right-heart heart-content">
-          <view class="heart-content-2 heart-in right-heart-in" style="top:{{45*(1-percent)}}rpx;right:{{45*(1-percent)}}rpx"></view>
+          <view class="heart-content-2 heart-in right-heart-in" style="top:{{45*(1-percentComputed)}}rpx;right:{{45*(1-percentComputed)}}rpx"></view>
     </view>
-    <!-- <view wx:for="{{hearts}}" wx:for-item="heartItem" wx:for-index="index" wx:key="index" 
+    <view class="heart-num">{{percentInt}}</view>
+    <view wx:for="{{hearts}}" wx:for-item="heartItem" wx:for-index="index" wx:key="index" 
       class="bubble"
       style="animation:bubble_y_{{heartItem.y}} 4s {{heartItem.delay}}s infinite linear,bubble_big_{{heartItem.s}} 4s {{heartItem.delay}}s infinite linear,bubble_x_{{heartItem.x}} 4s {{heartItem.delay}}s infinite ease-in-out"
-    >❤</view> -->
+    >❤</view>
   </view>

@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "docxtemplater": "^3.17.9",
+    "miniprogram-computed": "^2.1.1",
     "miniprogram-recycle-view": "^0.1.5"
   },
   "devDependencies": {},

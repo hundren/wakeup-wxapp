@@ -21,6 +21,12 @@
     overflow: hidden;
     position: relative;
 }
+.heart-num{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
     .heart-content-2{
         width: 50rpx;
     height: 75rpx;
