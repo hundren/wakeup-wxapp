@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "heart":"../../components/heart/heart",
+    "note":"../../components/note/note",
     "recycle-view": "miniprogram-recycle-view/recycle-view",
     "recycle-item": "miniprogram-recycle-view/recycle-item"
   },

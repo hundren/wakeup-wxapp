@@ -13,7 +13,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "useMultiFrameRuntime": true,
+    "useMultiFrameRuntime": false,
     "useApiHook": true,
     "babelSetting": {
       "ignore": [],
@@ -33,19 +33,23 @@
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
     "search": {
       "current": -1,
       "list": []
     },
     "conversation": {
       "current": -1,
-      "list": []
-    },
-    "plugin": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
       "list": []
     },
     "miniprogram": {
@@ -89,6 +93,13 @@
           "id": -1,
           "name": "pages/sign/sign",
           "pathName": "pages/sign/sign",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/note/note",
+          "pathName": "pages/note/note",
           "scene": null
         }
       ]

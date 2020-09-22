@@ -7,6 +7,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
+        env:'wakeup-4d5136'
       })
     }
 

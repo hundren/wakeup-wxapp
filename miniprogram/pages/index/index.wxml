@@ -62,4 +62,5 @@
   </view> -->
 
 <heart percent="{{percent}}"/>
+<note />
 </view>

@@ -1,0 +1,3 @@
+<view class="note-box" bindtap="note">
+  <image class="note-icon" src="../../images/note.svg"></image>
+</view>

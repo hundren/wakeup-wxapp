@@ -1,0 +1,19 @@
+.note-box{
+  width: 130rpx;
+  height: 130rpx;
+  overflow: hidden;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 10rpx;
+  right: 10rpx;
+  overflow: visible;
+  }
+  .note-icon{
+    width: 100rpx;
+    height: 120rpx;
+  }
+  .note-icon:active{
+    transform: scale(1.2);
+  }
