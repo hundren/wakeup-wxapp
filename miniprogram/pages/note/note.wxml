@@ -4,7 +4,7 @@
     <view wx:for="{{notes}}" wx:for-item="noteItem" class="{{noteItem.openId==='oSu_70LQjmtXhWvppkre70f-__w4'?'note-light':'note-dark'}} note-item">{{noteItem.note}}</view>
   </view>
   <view class="noteing-box">
-      <input class="weui-input" placeholder="记在小本本上" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{inputValue}}"/>
+      <textarea class="weui-input" auto-height placeholder="记在小本本上" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{inputValue}}"/>
       <button formType="submit" type="primary" size="mini" disabled="{{!inputValue}}" loading="{{loading}}">记下</button>
   </view>
 </view>

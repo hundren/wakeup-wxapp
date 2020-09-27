@@ -37,23 +37,31 @@
  <!-- <canvas class="canvas" canvas-id="canvas" :style="{width:'200px',height:'200px'}"></canvas> -->
 
   <view class="logContainer" wx:for="{{lists}}" wx:for-item="list" wx:for-index="index" wx:key="index">
-  <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text class="uploader-text-word">{{list.log}}</text>
-      <text class="uploader-text-date">{{list.date}}</text>
-    </view>
-    <view class="pic-box">
-      <view class="{{list.imgs.length >= 2?'uploader-container-min':'uploader-container'}}"  wx:for="{{list.imgs}}" wx:for-item="imgItem" wx:for-index="index" wx:key="index">
-        <image lazy-load  class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgItem.fileID}}" src="{{imgItem.tempFileURL}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
+    <view class="uploader">
+      <view class="uploader-text" bindtap="doUpload">
+        <text class="uploader-text-word">{{list.log}}</text>
       </view>
-    </view>
-    <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc" wx:for-index="index" wx:key="index">
-      <video class="uploader-video" src="{{videoSrc}}"></video>
+      <view class="pic-box">
+        <view class="{{list.imgs.length >= 2?'uploader-container-min':'uploader-container'}}"  wx:for="{{list.imgs}}" wx:for-item="imgItem" wx:for-index="index" wx:key="index">
+          <image lazy-load  class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgItem.fileID}}" src="{{imgItem.tempFileURL}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
+        </view>
+      </view>
+      <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc" wx:for-index="index" wx:key="index">
+        <video class="uploader-video" src="{{videoSrc}}"></video>
+      </view>
+      <view class="uploader-footer">
+        <text class="uploader-text-date">{{list.date}}</text>
+        <text bindtap="handleShowComment" data-id="{{list._id}}" class="comment-input">...</text>
+      </view>
+      <comment data="{{list.comments || []}}"/>
     </view>
   </view>
+
+  <view class="commenting-box" hidden="{{!commentShow}}">
+      <textarea class="weui-input" auto-height placeholder="在这写下你的赞美之词吧～" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{commentValue}}"/>
+      <button formType="submit" bindtap="handleToComment" type="primary" size="mini" disabled="{{!commentValue}}" loading="{{loading}}">评论</button>
   </view>
-
-
+  <view bindtap="handleCloseComment" class="commenting-bg" hidden="{{!commentShow}}"></view>
  <!-- 添加记录 -->
   <!-- <view class="uploader">
     <view class="uploader-text" bindtap="addList">

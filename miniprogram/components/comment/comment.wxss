@@ -1,0 +1,14 @@
+.comment-box{
+  font-size: 28rpx;
+  padding-right: 20rpx;
+}
+.comment-item{
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+.name{
+  color:#459fd9
+}
+.content{
+  color: #333;
+}

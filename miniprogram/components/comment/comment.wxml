@@ -1,0 +1,5 @@
+<view class="comment-box">
+  <view wx:for="{{data}}" wx:for-item="comment" class="comment-item">
+    <text class="name">{{comment.nickName}}：</text><text class="content">{{comment.text}}</text>
+  </view>
+</view>

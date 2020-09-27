@@ -7,15 +7,18 @@ Page({
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     openId: '',
+    listId:'',
     logged: false,
     takeSession: false,
     batchSetRecycleData:true,
     requestResult: '',
+    commentShow:false,
     lists:[],
     page:0,
     size:10,
     percent:0,
-    ctx:null
+    ctx:null,
+    commentValue:''
   },
   loading:false,
   onLoad: function() {
@@ -95,7 +98,6 @@ Page({
 // 获取accesstoken
 //  查询数据库
 onQuery: function() {
-  console.log('qqqqq',this.data.page)
   const db = wx.cloud.database()
   const that = this
   // 查询当前用户所有的 counters
@@ -217,6 +219,7 @@ onCount:function(){
             data: {
               openId,
               avatar:avatarUrl,
+              nickName:userInfo.nickName,
               userInfo
             },
           })
@@ -258,6 +261,65 @@ onCount:function(){
     wx.previewImage({
       current: e.target.dataset.img, 
       urls: imgs
+    })
+  },
+  handleShowComment(e){
+    console.log('e',e)
+    this.setData({
+      commentShow: true,
+      listId: e.target.dataset.id
+    })
+  },
+  handleCloseComment(){
+    this.setData({
+      commentShow: false
+    })
+  },
+  handleToComment:async function (){
+    const db = wx.cloud.database()
+    console.log('userInfo',this.data.userInfo)
+    try {
+    const result = await db.collection('lists').where({
+      _id: this.data.listId
+    }).get()
+    console.log('result',result)
+    if(result && result.data && result.data.length > 0){
+      let commentList = result.data[0].comments || []
+      commentList.push({
+        openId:this.data.openId,
+        ...this.data.userInfo,
+        text:this.data.commentValue
+      })
+      db.collection('lists').where({
+        _id: this.data.listId
+      })
+      .update({
+        data: {
+          comments: commentList
+        },
+      }).then(res=>{
+        wx.showToast({
+          title: '评论成功',
+          icon: 'success',
+          duration: 2000
+        })
+        this.setData({
+          commentValue: '',
+          page:0,
+          lists:[]
+        })
+        setTimeout(() => {
+          this.onQuery()
+        }, 800);
+      })
+    }
+    }catch(e) {
+      console.error(e)
+    }
+  },
+  bindKeyInput(e){
+    this.setData({
+      commentValue: e.detail.value
     })
   },
   onReachBottom(){
