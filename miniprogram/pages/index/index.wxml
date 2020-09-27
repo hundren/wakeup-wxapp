@@ -57,8 +57,8 @@
     </view>
   </view>
 
-  <view class="commenting-box" hidden="{{!commentShow}}">
-      <textarea class="weui-input" auto-height placeholder="在这写下你的赞美之词吧～" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{commentValue}}"/>
+  <view class="commenting-box" wx-if="{{commentShow}}">
+      <textarea class="weui-input" auto-focus	auto-height placeholder="在这写下你的赞美之词吧～" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{commentValue}}"/>
       <button formType="submit" bindtap="handleToComment" type="primary" size="mini" disabled="{{!commentValue}}" loading="{{loading}}">评论</button>
   </view>
   <view bindtap="handleCloseComment" class="commenting-bg" hidden="{{!commentShow}}"></view>
