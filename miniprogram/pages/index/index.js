@@ -8,6 +8,8 @@ Page({
     userInfo: {},
     openId: '',
     listId:'',
+    listIndex:0,
+    submitIng:false,
     logged: false,
     takeSession: false,
     batchSetRecycleData:true,
@@ -267,7 +269,8 @@ onCount:function(){
     console.log('e',e)
     this.setData({
       commentShow: true,
-      listId: e.target.dataset.id
+      listId: e.target.dataset.id,
+      listIndex: e.target.dataset.index
     })
   },
   handleCloseComment(){
@@ -278,6 +281,9 @@ onCount:function(){
   handleToComment:async function (){
     const db = wx.cloud.database()
     console.log('userInfo',this.data.userInfo)
+    this.setData({
+      submitIng:true
+    })
     try {
     const result = await db.collection('lists').where({
       _id: this.data.listId
@@ -298,19 +304,27 @@ onCount:function(){
           comments: commentList
         },
       }).then(res=>{
-        wx.showToast({
-          title: '评论成功',
-          icon: 'success',
-          duration: 2000
+        // wx.showToast({
+        //   title: '评论成功',
+        //   icon: 'success',
+        //   duration: 2000
+        // })
+        // fire and run
+        const _list = this.data.lists
+        console.log('_list',_list)
+        if(!_list[this.data.listIndex].comments){
+          _list[this.data.listIndex].comments = []
+        }
+        _list[this.data.listIndex].comments.push({
+          openId:this.data.openId,
+          ...this.data.userInfo,
+          text:this.data.commentValue
         })
         this.setData({
-          commentValue: '',
-          page:0,
-          lists:[]
+          lists: _list,
+          commentValue:'',
+          submitIng:false
         })
-        setTimeout(() => {
-          this.onQuery()
-        }, 800);
       })
     }
     }catch(e) {

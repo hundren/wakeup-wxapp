@@ -51,15 +51,15 @@
       </view>
       <view class="uploader-footer">
         <text class="uploader-text-date">{{list.date}}</text>
-        <text bindtap="handleShowComment" data-id="{{list._id}}" class="comment-input">...</text>
+        <text bindtap="handleShowComment" data-id="{{list._id}}" data-index="{{index}}" class="comment-input">...</text>
       </view>
       <comment data="{{list.comments || []}}"/>
     </view>
   </view>
 
   <view class="commenting-box" wx-if="{{commentShow}}">
-      <textarea class="weui-input" auto-focus	auto-height placeholder="在这写下你的赞美之词吧～" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{commentValue}}"/>
-      <button formType="submit" bindtap="handleToComment" type="primary" size="mini" disabled="{{!commentValue}}" loading="{{loading}}">评论</button>
+      <textarea class="weui-input" auto-focus	auto-height show-confirm-bar="{{false}}" placeholder="在这写下你的赞美之词吧～" bindinput="bindKeyInput" confirm-type="done" name="note" value="{{commentValue}}"/>
+      <button formType="submit" bindtap="handleToComment" type="primary" size="mini" disabled="{{!commentValue || submitIng}}" loading="{{loading}}">评论</button>
   </view>
   <view bindtap="handleCloseComment" class="commenting-bg" hidden="{{!commentShow}}"></view>
  <!-- 添加记录 -->
