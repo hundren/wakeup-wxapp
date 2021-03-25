@@ -17,6 +17,7 @@
                 <image class="log-avatar" src="{{log.questionAvatar}}" mode="widthFix"/>
                 <view class="log-content log-content-question" >
                     <view >{{log.question}}</view>
+                    <image lazy-load  src="{{imgUrl}}" mode="aspectFill" class="log-img" bindtap="previewImg"  wx:for="{{log.imgs}}" wx:for-item="imgUrl" wx:for-index="index" wx:key="index" data-img="{{imgUrl}}"></image>
                     <view >{{log.questionTime}}</view>
                 </view>
             </view>

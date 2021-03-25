@@ -42,3 +42,11 @@ picker{
 .log-box:hover{
     right: 0;
 }
+.add-pic-button{
+  font-size: 60rpx;
+  border: 1px dashed #999;
+  width: 100rpx;
+  height: 100rpx;
+  text-align: center;
+  color: #999;
+}

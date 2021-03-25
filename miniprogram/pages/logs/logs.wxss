@@ -61,3 +61,7 @@ page{
     justify-content: flex-end;
     margin-bottom: 20rpx;
 }
+.log-img{
+  width: 100%;
+  min-width: 300rpx;
+}

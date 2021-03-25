@@ -29,7 +29,8 @@ Page({
     data: {
       isSubmitting:false,
       isBirthday:false,
-      isAnniversary:false
+      isAnniversary:false,
+      imgs:[],
     },
     sign:async function(e){
 
@@ -69,7 +70,8 @@ Page({
                         data: {
                             formId:e.detail.formId,
                             text:e.detail.value.text,
-                            isEarlier:status.isEarlier
+                            isEarlier:status.isEarlier,
+                            imgs:that.data.imgs
                         },
                         success: res => {
                           wx.showToast({
@@ -124,5 +126,61 @@ Page({
         isAnniversary:true
        })
      }
-   }
+   },
+    // 上传图片
+  doUpload: function () {
+    const that = this
+    // 选择图片
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        const filePath = res.tempFilePaths[0]
+        that.uploadFile(filePath,(fileRes)=>{
+          let imgs = JSON.parse(JSON.stringify(that.data.imgs))
+          imgs.push(fileRes.fileID)
+          that.setData({
+            imgs
+          })
+        })
+      },
+      fail: e => {
+        console.error(e)
+      }
+    })
+  },
+  uploadFile:function(filePath,cb){
+    wx.showLoading({
+      title: '上传中',
+    })
+    const time =   Date.parse( new Date());
+    const cloudPath = time + filePath.match(/\.[^.]+?$/)[0]
+    wx.cloud.uploadFile({
+      cloudPath,
+      filePath,
+      success: res => {
+        console.log('[上传文件] 成功：', res)
+        typeof cb === 'function' && cb(res)
+    
+      },
+      fail: e => {
+        console.error('[上传文件] 失败：', e)
+        wx.showToast({
+          icon: 'none',
+          title: '上传失败',
+        })
+      },
+      complete: () => {
+        wx.hideLoading()
+      }
+    })
+  },
+  previewImg:function(e){
+    const that = this
+    wx.previewImage({
+      current: e.target.dataset.img, 
+      urls: that.data.imgs
+    })
+  }
 })

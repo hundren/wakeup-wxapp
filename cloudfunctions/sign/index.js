@@ -13,13 +13,14 @@ exports.main = async (event, context) => {
           showTime:true
         }
     })
-    const { text,formId,isEarlier } = event
+    const { text,formId,isEarlier,imgs } = event
     //todo先设置point为1
     const res = await db.collection('logs').add({
         data:{
             text,
             formId,
             date,
+            imgs,
             time,
             point:1,
             openId:event.userInfo.openId,

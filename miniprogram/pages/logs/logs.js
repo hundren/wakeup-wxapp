@@ -9,7 +9,8 @@ Page({
       page:0,
       size:20,
       avatarObj:{},
-      logs:[]
+      logs:[],
+      imgs:[]
     },
     onLoad:function(){
         console.log('app',app.globalData)
@@ -90,6 +91,9 @@ Page({
             const dateIndex = _logs.findIndex(item=>item.date === logItem.date)
             if(dateIndex > -1){
               if(logItem.isEarlier){
+                logItem.imgs && this.setData({
+                  imgs:this.data.imgs.concat(logItem.imgs)
+                })
                 _logs[dateIndex] = {
                   ..._logs[dateIndex],
                   question: logItem.text,
@@ -98,6 +102,9 @@ Page({
                   questionAvatar: that.data.avatarObj[logItem.openId]
                 }
               }else{
+                logItem.imgs && this.setData({
+                  imgs:this.data.imgs.concat(logItem.imgs)
+                })
                 _logs[dateIndex] = {
                   ..._logs[dateIndex],
                   answer: logItem.text,
@@ -107,8 +114,12 @@ Page({
                 }
               }
             }else{
+              logItem.imgs && this.setData({
+                imgs:this.data.imgs.concat(logItem.imgs)
+              })
               _logs.push({
                 date: logItem.date,
+                imgs: logItem.imgs,
                 question: logItem.isEarlier ? logItem.text : '',
                 questionTime: logItem.isEarlier ? logItem.time.split(' ')[1] : '',
                 questionOpenId: logItem.isEarlier ? logItem.openId : '',
@@ -140,5 +151,12 @@ Page({
         page:this.data.page + 1
       })
       this.getLogs()
+    },
+    previewImg:function(e){
+      const that = this
+      wx.previewImage({
+        current: e.target.dataset.img, 
+        urls: that.data.imgs
+      })
     }
 })
