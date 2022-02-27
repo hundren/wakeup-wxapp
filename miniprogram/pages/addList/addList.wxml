@@ -12,7 +12,7 @@
  <view  >
  
  </view>
-  <picker mode="date" value="{{date}}" start="2019-01-01" end="2021-12-12" bindchange="bindDateChange">
+  <picker mode="date" value="{{date}}" start="2019-01-01" end="2221-12-12" bindchange="bindDateChange">
     <view class="picker-date">选择日期: {{date}}</view>
   </picker>
   <button
