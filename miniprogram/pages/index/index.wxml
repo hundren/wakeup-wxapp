@@ -19,7 +19,7 @@
       </view>
       <view class="pic-box">
         <view class="{{list.imgs.length >= 2?'uploader-container-min':'uploader-container'}}"  wx:for="{{list.imgs}}" wx:for-item="imgItem" wx:for-index="index" wx:key="index">
-          <image lazy-load  class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgItem.fileID}}" src="{{imgItem.tempFileURL}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
+          <image lazy-load  class="{{list.imgs.length >= 2?'uploader-image-min':'uploader-image'}}" data-img="{{imgItem}}" src="{{imgItem}}" mode="{{list.imgs.length >= 2?'aspectFill':'aspectFit'}}" bindtap="previewImg"></image>
         </view>
       </view>
       <view class="uploader-container"  wx:for="{{list.videos}}" wx:for-item="videoSrc" wx:for-index="index" wx:key="index">

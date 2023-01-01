@@ -1,6 +1,7 @@
 //index.js
 const app = getApp()
 const createRecycleContext = require('miniprogram-recycle-view')
+const { mpServerless } = getApp();
 var ctx
 Page({
   data: {
@@ -23,7 +24,8 @@ Page({
     commentValue:''
   },
   loading:false,
-  onLoad: function() {
+  onLoad: async function() {
+    console.log('mpServerless',mpServerless)
     ctx = createRecycleContext({
       id: 'recycleId',
       dataKey: 'recycleList',
@@ -34,6 +36,7 @@ Page({
       }
     })
     let that = this
+   
 
     if (!wx.cloud) {
       wx.redirectTo({
@@ -68,7 +71,7 @@ Page({
       }
     })
     var ctx = wx.createCanvasContext('canvas')
-    ctx.drawImage('cloud://wakeup-4d5136.7761-wakeup-4d5136-1253625034/1589075195000.jpg', 0, 0, 100, 100)
+   
     ctx.draw(false, setTimeout(function(){
          wx.canvasToTempFilePath({
              canvasId: 'canvas',
@@ -107,88 +110,34 @@ onQuery: function() {
     title: '加载中',
   })
   this.loading = true
-  db.collection('lists')
-  .orderBy('date', 'desc')
-  .skip(that.data.page*that.data.size) 
-  .limit(that.data.size).
-  get({
-    success: res => {
-      let _lists = this.data.lists
-      
-      _lists = _lists.concat(res.data)
-      let downloadPromise = []
-      _lists.forEach((item,mainIndex)=>{
-        if(item.imgs.length > 0){
-          const download = new Promise((resolve, reject) => {
-            wx.cloud.getTempFileURL({
-              fileList: item.imgs, // 文件 ID
-              success: res => {
-                // 返回临时文件路径
-                console.log(res.fileList)
-                res.fileList = res.fileList.map(file=>{
-                  return {
-                    ...file,
-                    tempFileURL:file.tempFileURL + '?imageMogr2/quality/6'
-                  }
-                })
-                resolve({mainIndex,imgs:res.fileList});
-              },
-              fail: error=>{
-                console.log('error',error)
-                resolve(null)
-              }
-            })
-          });
-          console.log('download',download)
-          downloadPromise.push(download)
-        }
-      })
-      console.log('downloadPromise',downloadPromise)
-    
+  
 
-   
-      console.log('downloadPromise',downloadPromise)
-      Promise.all(downloadPromise).then(res=>{
-        console.log('=======res========',res)
-        res.forEach(element => {
-          if(element){
-            const {mainIndex,imgs} = element
-            _lists[mainIndex].imgs = imgs
-          }
-        });
-        console.log('_lists',_lists)
-
-        this.setData({
-          lists: _lists
-        })
-        wx.hideLoading()
-        this.loading =false
-      })
-     
-      console.log('[数据库] [查询记录] 成功:111 ', res)
-
-      ctx.append(res.data,()=>{
-        console.log('---------------------',)
-      })
-      console.log('[数据库] [查询记录] 成功: ', res)
-    },
-    fail: err => {
-      wx.showToast({
-        icon: 'none',
-        title: '查询记录失败'
-      })
-      console.error('[数据库] [查询记录] 失败：', err)
-    }
+  mpServerless.db.collection('lists').find({},{skip:that.data.page*that.data.size,limit:that.data.size,sort:{date:-1}}).then((res)=>{
+    console.log('aliyunlist',res)
+    let _lists = this.data.lists
+    let aliyunList = (res.result || []).map(item=>{
+      return {
+        ...item,
+        imgs:item.imgs.map(imgItem=>`${imgItem}?x-oss-process=image/quality,q_10`)
+      }
+    })
+    _lists = _lists.concat(aliyunList)
+    this.setData({
+      lists: _lists
+    })
+    wx.hideLoading()
+    this.loading =false
   })
+  
 },
 onCount:function(){
   const db = wx.cloud.database()
   const that = this
-  db.collection('lists').count({
-    success(res) {
-      console.log(res.total)
+  mpServerless.db.collection('lists').find().then(res=>{
+    console.log('total',res)
+    if(res){
       that.setData({
-        percent: res.total/100
+        percent: res.result.length/100
       })
     }
   })
@@ -255,13 +204,13 @@ onCount:function(){
   
   previewImg:function(e){
     const that = this
-    // 扁平化当前所有imgs
+    // 扁平化当前所有imgs,并去掉压缩
     let imgs = []
     that.data.lists.forEach(list => {
-      imgs = imgs.concat(list.imgs.map(item=>{return item.fileID}))
+      imgs = imgs.concat(list.imgs.map(item=>{return item.split('?')[0]}))
     });
     wx.previewImage({
-      current: e.target.dataset.img, 
+      current: e.target.dataset.img.split('?')[0], 
       urls: imgs
     })
   },
@@ -288,7 +237,6 @@ onCount:function(){
     const result = await db.collection('lists').where({
       _id: this.data.listId
     }).get()
-    console.log('result',result)
     if(result && result.data && result.data.length > 0){
       let commentList = result.data[0].comments || []
       commentList.push({

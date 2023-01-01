@@ -1,3 +1,4 @@
+const { mpServerless } = getApp();
 
 Page({
   data: {
@@ -45,10 +46,11 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        console.log('res',res)
         const filePath = res.tempFilePaths[0]
         that.uploadFile(filePath,(fileRes)=>{
           let imgs = JSON.parse(JSON.stringify(that.data.imgs))
-          imgs.push(fileRes.fileID)
+          imgs.push(fileRes.fileUrl)
           that.setData({
             imgs
           })
@@ -68,7 +70,7 @@ Page({
         const filePath = res.tempFilePath
         that.uploadFile(filePath,(fileRes)=>{
           let videos = JSON.parse(JSON.stringify(that.data.videos))
-          videos.push(fileRes.fileID)
+          videos.push(fileRes.fileUrl)
           that.setData({
             videos
           })
@@ -84,27 +86,43 @@ Page({
     wx.showLoading({
       title: '上传中',
     })
-    const time =   Date.parse( new Date());
+    const time = Date.parse( new Date());
     const cloudPath = time + filePath.match(/\.[^.]+?$/)[0]
-    wx.cloud.uploadFile({
-      cloudPath,
-      filePath,
-      success: res => {
-        console.log('[上传文件] 成功：', res)
-        typeof cb === 'function' && cb(res)
-    
-      },
-      fail: e => {
-        console.error('[上传文件] 失败：', e)
-        wx.showToast({
-          icon: 'none',
-          title: '上传失败',
-        })
-      },
-      complete: () => {
+console.log('mpServerless',mpServerless)
+console.log('cloudPath',cloudPath)
+    mpServerless.file.uploadFile({filePath, headers: {
+      contentDisposition: 'attachment',
+    },}).then((res) => {
+      // console.log(image);
+      // this.setData({
+      //   imageUrl: image.fileUrl,
+      // });
         wx.hideLoading()
-      }
-    })
+        typeof cb === 'function' && cb(res)
+
+    }).catch((e)=>{
+      console.log('e',e)
+        wx.hideLoading()
+    });
+    // wx.cloud.uploadFile({
+    //   cloudPath,
+    //   filePath,
+    //   success: res => {
+    //     console.log('[上传文件] 成功：', res)
+    //     typeof cb === 'function' && cb(res)
+    
+    //   },
+    //   fail: e => {
+    //     console.error('[上传文件] 失败：', e)
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '上传失败',
+    //     })
+    //   },
+    //   complete: () => {
+    //     wx.hideLoading()
+    //   }
+    // })
   },
   saveList:function(e){
     console.log('e',e)
@@ -119,31 +137,48 @@ Page({
       })
       return false
     }
-    db.collection('lists').add({
-      data: {
-        log,
-        imgs:imgs,
-        videos,
-        date
-      },
-      success: res => {
-        // 在返回结果中会包含新创建的记录的 _id
-        wx.showToast({
-          title: '新增记录成功',
-        })
-        console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
-        wx.reLaunch({
-          url:'/pages/index/index'
-        })
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '新增记录失败'
-        })
-        console.error('[数据库] [新增记录] 失败：', err)
-      }
+    mpServerless.db.collection('lists').insertOne({
+      log,
+      imgs,
+      videos,
+      date
     })
+  .then(res => {
+      // 在返回结果中会包含新创建的记录的 _id
+      wx.showToast({
+        title: '新增记录成功',
+      })
+      console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+      wx.reLaunch({
+        url:'/pages/index/index'
+      })
+  })
+  .catch(console.error);
+    // db.collection('lists').add({
+    //   data: {
+    //     log,
+    //     imgs:imgs,
+    //     videos,
+    //     date
+    //   },
+    //   success: res => {
+    //     // 在返回结果中会包含新创建的记录的 _id
+    //     wx.showToast({
+    //       title: '新增记录成功',
+    //     })
+    //     console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+    //     wx.reLaunch({
+    //       url:'/pages/index/index'
+    //     })
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '新增记录失败'
+    //     })
+    //     console.error('[数据库] [新增记录] 失败：', err)
+    //   }
+    // })
   },
   previewImg:function(e){
     const that = this
